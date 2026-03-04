@@ -207,6 +207,7 @@ export const mockSourceStats: SourceStats[] = [
   { source: 'reddit_ml', totalItems: 2345, avgSentiment: 0.28, lastCrawled: new Date(now.getTime() - 15 * 60 * 1000).toISOString() },
   { source: 'reddit_locallama', totalItems: 1567, avgSentiment: 0.45, lastCrawled: new Date(now.getTime() - 20 * 60 * 1000).toISOString() },
   { source: 'arxiv', totalItems: 890, avgSentiment: 0.15, lastCrawled: new Date(now.getTime() - 6 * 60 * 60 * 1000).toISOString() },
+  { source: 'google_ai_blog', totalItems: 78, avgSentiment: 0.74, lastCrawled: new Date(now.getTime() - 3 * 60 * 60 * 1000).toISOString() },
 ];
 
 export const mockDailySummary: DailySummary = {
@@ -234,21 +235,21 @@ export const mockCrawlStatus: CrawlStatus[] = [
   { source: 'reddit_ml', lastRun: new Date(now.getTime() - 15 * 60 * 1000).toISOString(), nextRun: new Date(now.getTime() + 105 * 60 * 1000).toISOString(), status: 'running', itemsCollected: 0 },
   { source: 'reddit_locallama', lastRun: new Date(now.getTime() - 20 * 60 * 1000).toISOString(), nextRun: new Date(now.getTime() + 100 * 60 * 1000).toISOString(), status: 'success', itemsCollected: 15 },
   { source: 'arxiv', lastRun: new Date(now.getTime() - 6 * 60 * 60 * 1000).toISOString(), nextRun: new Date(now.getTime() + 6 * 60 * 60 * 1000).toISOString(), status: 'error', itemsCollected: 0, errorMessage: 'Rate limit exceeded' },
+  { source: 'google_ai_blog', lastRun: new Date(now.getTime() - 3 * 60 * 60 * 1000).toISOString(), nextRun: new Date(now.getTime() + 3 * 60 * 60 * 1000).toISOString(), status: 'success', itemsCollected: 3 },
 ];
 
-// Chart data for sentiment over time
+// Chart data for sentiment over time (deterministic to avoid hydration mismatch)
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+}
+
 export const mockSentimentHistory = Array.from({ length: 14 }, (_, i) => {
   const date = new Date(now.getTime() - (13 - i) * 24 * 60 * 60 * 1000);
   return {
     date: date.toISOString().split('T')[0],
-    positive: Math.floor(Math.random() * 30) + 20,
-    negative: Math.floor(Math.random() * 15) + 5,
-    neutral: Math.floor(Math.random() * 20) + 10,
+    positive: Math.floor(seededRandom(i * 3 + 1) * 30) + 20,
+    negative: Math.floor(seededRandom(i * 3 + 2) * 15) + 5,
+    neutral: Math.floor(seededRandom(i * 3 + 3) * 20) + 10,
   };
 });
-
-// Volume by source for charts
-export const mockVolumeBySource = mockSourceStats.map(s => ({
-  source: s.source,
-  count: Math.floor(Math.random() * 50) + 10,
-}));

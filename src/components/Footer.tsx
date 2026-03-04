@@ -8,8 +8,8 @@ export function Footer() {
           <div>
             <h4 className="font-display text-sm text-white mb-3">About</h4>
             <p className="text-sm text-muted leading-relaxed">
-              Automated AI/LLM news aggregation with sentiment analysis. 
-              Built with n8n, Playwright, and Claude API to demonstrate 
+              Automated AI/LLM news aggregation with sentiment analysis.
+              Built with n8n, RSS feeds, and Claude API to demonstrate
               content monitoring and workflow automation capabilities.
             </p>
           </div>
@@ -19,9 +19,9 @@ export function Footer() {
             <ul className="text-sm text-muted space-y-1">
               <li>Hacker News</li>
               <li>TechCrunch AI</li>
-              <li>Anthropic, OpenAI, DeepMind Blogs</li>
+              <li>Anthropic, OpenAI, DeepMind, Google AI Blogs</li>
               <li>Reddit r/MachineLearning, r/LocalLLaMA</li>
-              <li>arXiv cs.AI, cs.LG</li>
+              <li>arXiv cs.AI</li>
             </ul>
           </div>
 
@@ -29,7 +29,7 @@ export function Footer() {
             <h4 className="font-display text-sm text-white mb-3">Tech Stack</h4>
             <ul className="text-sm text-muted space-y-1">
               <li>n8n — Workflow orchestration</li>
-              <li>Playwright — Web crawling</li>
+              <li>RSS feeds — Data ingestion</li>
               <li>Claude API — Sentiment & summarization</li>
               <li>Next.js — Dashboard</li>
               <li>PostgreSQL — Data storage</li>

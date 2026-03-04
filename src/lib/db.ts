@@ -67,28 +67,28 @@ export async function getNewsById(id: string): Promise<NewsItem | null> {
 export async function getTrendingTopics(days: number = 7): Promise<TrendData[]> {
   const result = await pool.query(`
     WITH topic_counts AS (
-      SELECT 
+      SELECT
         unnest(topics) as topic,
         COUNT(*) as current_count,
         AVG(sentiment_score) as avg_sentiment
       FROM news_items
-      WHERE published_at > NOW() - INTERVAL '${days} days'
+      WHERE published_at > NOW() - ($1 * INTERVAL '1 day')
       GROUP BY unnest(topics)
     ),
     previous_counts AS (
-      SELECT 
+      SELECT
         unnest(topics) as topic,
         COUNT(*) as previous_count
       FROM news_items
-      WHERE published_at BETWEEN NOW() - INTERVAL '${days * 2} days' AND NOW() - INTERVAL '${days} days'
+      WHERE published_at BETWEEN NOW() - ($2 * INTERVAL '1 day') AND NOW() - ($1 * INTERVAL '1 day')
       GROUP BY unnest(topics)
     )
-    SELECT 
+    SELECT
       tc.topic,
       tc.current_count as count,
       tc.avg_sentiment,
       COALESCE(
-        ROUND(((tc.current_count - COALESCE(pc.previous_count, 0))::numeric / 
+        ROUND(((tc.current_count - COALESCE(pc.previous_count, 0))::numeric /
         NULLIF(COALESCE(pc.previous_count, 1), 0) * 100), 0),
         0
       ) as change
@@ -96,7 +96,7 @@ export async function getTrendingTopics(days: number = 7): Promise<TrendData[]> 
     LEFT JOIN previous_counts pc ON tc.topic = pc.topic
     ORDER BY tc.current_count DESC
     LIMIT 20
-  `);
+  `, [days, days * 2]);
   
   return result.rows.map(row => ({
     topic: row.topic,
@@ -200,16 +200,16 @@ export async function getSentimentHistory(days: number = 14): Promise<Array<{
   neutral: number;
 }>> {
   const result = await pool.query(`
-    SELECT 
+    SELECT
       DATE(published_at) as date,
       COUNT(*) FILTER (WHERE sentiment = 'positive') as positive,
       COUNT(*) FILTER (WHERE sentiment = 'negative') as negative,
       COUNT(*) FILTER (WHERE sentiment = 'neutral') as neutral
     FROM news_items
-    WHERE published_at > NOW() - INTERVAL '${days} days'
+    WHERE published_at > NOW() - ($1 * INTERVAL '1 day')
     GROUP BY DATE(published_at)
     ORDER BY date ASC
-  `);
+  `, [days]);
   
   return result.rows.map(row => ({
     date: row.date.toISOString().split('T')[0],

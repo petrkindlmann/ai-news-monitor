@@ -31,7 +31,7 @@ export function Header() {
             </div>
 
             <a
-              href="https://github.com/pkindlmann/ai-news-monitor"
+              href="https://github.com/petr-kin/ai-news-monitor"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-1.5 bg-surface-light border border-border rounded-lg text-sm text-muted hover:text-white hover:border-accent transition-colors"

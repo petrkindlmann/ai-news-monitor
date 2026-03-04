@@ -29,23 +29,6 @@ export function getSentimentColor(sentiment: Sentiment): string {
   }
 }
 
-export function getSentimentLabel(score: number): Sentiment {
-  if (score > 0.2) return 'positive';
-  if (score < -0.2) return 'negative';
-  return 'neutral';
-}
-
 export function getSourceLabel(source: Source): string {
   return SOURCE_LABELS[source] || source;
-}
-
-export function truncateText(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength - 3) + '...';
-}
-
-export function getChangeIndicator(change: number): { icon: string; color: string } {
-  if (change > 0) return { icon: '↑', color: '#00ff88' };
-  if (change < 0) return { icon: '↓', color: '#ff4466' };
-  return { icon: '→', color: '#6b8aff' };
 }
