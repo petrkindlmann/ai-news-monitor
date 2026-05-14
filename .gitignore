@@ -34,3 +34,8 @@ Thumbs.db
 
 # misc
 *.tsbuildinfo
+.vercel
+
+# screenshots (debug artifacts)
+*.png
+!docs/screenshots/*.png

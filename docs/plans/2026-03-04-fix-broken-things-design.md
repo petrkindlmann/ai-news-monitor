@@ -17,7 +17,7 @@
 7. **Footer data sources** — missing Google AI Blog. Fix: update list.
 8. **Mock data** — missing `google_ai_blog` in sourceStats and crawlStatus. Fix: add it.
 9. **Hardcoded stats** — "12% vs yesterday", "from arXiv". Fix: derive from data or remove.
-10. **Header GitHub URL** — `pkindlmann` → `petr-kin`.
+10. **Header GitHub URL** — `pkindlmann` → `petrkindlmann`.
 
 ### Cleanup
 11. **Dead utils** — remove `truncateText`, `getChangeIndicator`, `getSentimentLabel`.
