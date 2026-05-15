@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { IBM_Plex_Sans, Space_Mono } from 'next/font/google'
 import './globals.css'
 
@@ -16,19 +15,10 @@ const spaceMono = Space_Mono({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  title: 'AI News Monitor | Petr Kindlmann',
-  description: 'Real-time AI/LLM news aggregation with sentiment analysis. Built with n8n, RSS feeds, and Claude API.',
-  keywords: ['AI news', 'LLM', 'machine learning', 'sentiment analysis', 'n8n', 'automation'],
-  authors: [{ name: 'Petr Kindlmann' }],
-  openGraph: {
-    title: 'AI News Monitor',
-    description: 'Real-time AI/LLM news aggregation with sentiment analysis',
-    url: 'https://ai-news.kindlmann.com',
-    siteName: 'AI News Monitor',
-    type: 'website',
-  },
-}
+export const metadata = {
+  title: 'AI News Monitor — Weekly field notes from the AI firehose',
+  description: 'A weekly AI news zine for builders who want signal, not another firehose.',
+};
 
 export default function RootLayout({
   children,
