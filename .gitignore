@@ -41,3 +41,6 @@ scripts/output/
 # screenshots (debug artifacts)
 *.png
 !docs/screenshots/*.png
+
+# playwright mcp snapshots
+.playwright-mcp/
