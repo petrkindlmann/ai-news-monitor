@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
-  images: {
-    domains: ['avatars.githubusercontent.com', 'pbs.twimg.com'],
-  },
-}
+  output: 'export',
+  images: { unoptimized: true },
+  trailingSlash: true,
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
