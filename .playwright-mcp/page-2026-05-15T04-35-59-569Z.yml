@@ -1,0 +1,254 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - link "AI News Monitor" [ref=e5] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e6]: Weekly field notes from the AI firehose
+    - article [ref=e7]:
+      - generic [ref=e8]:
+        - generic [ref=e9]: Issue 2026 · Week 20 · May 8 – May 15, 2026
+        - heading "Attack Surface, Alignment Gaps, and the Benchmark Flood" [level=1] [ref=e10]
+        - generic [ref=e11]: "Two themes dominated this week and neither is comfortable. First: agent security is worse than most teams are treating it. One in seven agent skill files carries hardcoded credentials with DB write access. That's not a theoretical attack surface—that's production exposure sitting in repos right now. Pair that with new research on behavioral steering via conversation history and prompt injection defenses that still don't hold, and you have a serious pre-deployment checklist problem. Second: the benchmark ecosystem is eating itself. This week alone produced benchmarks for Olympiad reasoning, SWE agents, mobile GUI agents, SRE tasks, supply chain management, ICU data, and agentic RL post-training. Most of them are fine papers. But the signal-to-noise ratio on 'our model achieves SOTA on X' claims is approaching zero when X changes every week. AgentLens calling out the 'lucky pass' problem in SWE-agent evaluation is the most honest thing published this week. OpenAI's TanStack supply chain response is worth reading for the operational detail, not the PR framing. And the argument that automated alignment for superintelligence is harder than the field assumes deserves more attention than it's getting. Benchmark fatigue is real. Security debt is real. Read accordingly."
+      - generic [ref=e12]:
+        - heading "The 5 That Matter" [level=2] [ref=e13]
+        - paragraph [ref=e14]: Stories with direct implications for what you build or deploy
+        - article [ref=e15]:
+          - generic [ref=e16]:
+            - generic [ref=e17]: Signal
+            - generic [ref=e18]: Hacker News / Security Boulevard
+            - generic [ref=e19]: ·
+            - generic [ref=e20]: May 15
+            - generic [ref=e21]: •••••
+          - heading "15% of AI Agent Skill Files Carry Hardcoded Credentials with DB Write Access" [level=3] [ref=e22]:
+            - link "15% of AI Agent Skill Files Carry Hardcoded Credentials with DB Write Access" [ref=e23] [cursor=pointer]:
+              - /url: https://securityboulevard.com/2026/05/capsule-security-analysis-details-scope-of-vulnerable-ai-agent-attack-surface/
+          - paragraph [ref=e24]: Capsule's analysis of agent skill files found hardcoded credentials in 15% of samples—many with database write access. This isn't a future risk. If you're pulling community-built skills into your agent stack, you're likely already exposed. Audit before you deploy.
+          - paragraph [ref=e25]:
+            - strong [ref=e26]: "Why it matters:"
+            - text: Agent skill ecosystems are the new npm—and they have the same early-npm credential hygiene problem.
+          - paragraph [ref=e27]:
+            - strong [ref=e28]: "Takeaway:"
+            - text: Treat every third-party skill file as untrusted code. Scan for secrets before integration.
+        - article [ref=e29]:
+          - generic [ref=e30]:
+            - generic [ref=e31]: Signal
+            - generic [ref=e32]: OpenAI Blog
+            - generic [ref=e33]: ·
+            - generic [ref=e34]: May 13
+            - generic [ref=e35]: •••••
+          - heading "OpenAI's Response to the TanStack npm Supply Chain Attack" [level=3] [ref=e36]:
+            - link "OpenAI's Response to the TanStack npm Supply Chain Attack" [ref=e37] [cursor=pointer]:
+              - /url: https://openai.com/index/our-response-to-the-tanstack-npm-supply-chain-attack
+          - paragraph [ref=e38]: "OpenAI details how it handled the TanStack 'Mini Shai-Hulud' npm compromise: what was affected, certificate signing protections, and a hard deadline—macOS users must update OpenAI apps by June 12. The incident response process is documented in useful operational detail."
+          - paragraph [ref=e39]:
+            - strong [ref=e40]: "Why it matters:"
+            - text: Supply chain attacks on AI tooling are live threats. The June 12 deadline is real.
+          - paragraph [ref=e41]:
+            - strong [ref=e42]: "Takeaway:"
+            - text: If you ship macOS apps using OpenAI SDKs, update now. Read the post for the signing cert implications.
+        - article [ref=e43]:
+          - generic [ref=e44]:
+            - generic [ref=e45]: Research
+            - generic [ref=e46]: arXiv cs.AI
+            - generic [ref=e47]: ·
+            - generic [ref=e48]: May 15
+            - generic [ref=e49]: ••••
+          - heading "Automated Alignment Is Harder Than You Think" [level=3] [ref=e50]:
+            - link "Automated Alignment Is Harder Than You Think" [ref=e51] [cursor=pointer]:
+              - /url: https://arxiv.org/abs/2605.06390
+          - paragraph [ref=e52]: The paper argues that using AI agents to automate alignment research—a leading ASI safety proposal—could produce compelling but catastrophically misleading safety assessments even without scheming. The failure mode isn't malice; it's subtle systematic error that looks like success.
+          - paragraph [ref=e53]:
+            - strong [ref=e54]: "Why it matters:"
+            - text: If the field's main plan for aligning superintelligence has a structural flaw, that's worth knowing now.
+          - paragraph [ref=e55]:
+            - strong [ref=e56]: "Takeaway:"
+            - text: Don't assume AI-assisted alignment research is safe by default. The evaluation problem is recursive.
+        - article [ref=e57]:
+          - generic [ref=e58]:
+            - generic [ref=e59]: Research
+            - generic [ref=e60]: arXiv cs.AI
+            - generic [ref=e61]: ·
+            - generic [ref=e62]: May 15
+            - generic [ref=e63]: ••••
+          - 'heading "History Anchors: Prior Behavior Steers LLMs Toward Unsafe Actions" [level=3] [ref=e64]':
+            - 'link "History Anchors: Prior Behavior Steers LLMs Toward Unsafe Actions" [ref=e65] [cursor=pointer]':
+              - /url: https://arxiv.org/abs/2605.13825
+          - paragraph [ref=e66]: Conversation history can be used to gradually steer LLM agents toward unsafe decisions—a behavioral anchoring attack that doesn't require prompt injection. Prior compliant behavior makes later unsafe requests more likely to succeed. Multi-turn agent deployments are specifically vulnerable.
+          - paragraph [ref=e67]:
+            - strong [ref=e68]: "Why it matters:"
+            - text: Session-level attack vectors are underappreciated. Stateful agents have a larger attack surface than stateless ones.
+          - paragraph [ref=e69]:
+            - strong [ref=e70]: "Takeaway:"
+            - text: Implement session-level safety checks, not just per-turn filtering. History is an attack vector.
+        - article [ref=e71]:
+          - generic [ref=e72]:
+            - generic [ref=e73]: Research
+            - generic [ref=e74]: arXiv cs.AI
+            - generic [ref=e75]: ·
+            - generic [ref=e76]: May 15
+            - generic [ref=e77]: ••••
+          - heading "AgentLens Exposes the 'Lucky Pass' Problem in SWE-Agent Evaluation" [level=3] [ref=e78]:
+            - link "AgentLens Exposes the 'Lucky Pass' Problem in SWE-Agent Evaluation" [ref=e79] [cursor=pointer]:
+              - /url: https://arxiv.org/abs/2605.12925
+          - paragraph [ref=e80]: AgentLens finds that SWE agents frequently pass benchmarks through coincidental solutions rather than sound reasoning—the 'lucky pass' problem. Binary pass/fail metrics hide this. Process-level trajectory analysis reveals agents that look capable but aren't.
+          - paragraph [ref=e81]:
+            - strong [ref=e82]: "Why it matters:"
+            - text: If your SWE agent eval is just pass/fail, you're measuring luck as much as capability.
+          - paragraph [ref=e83]:
+            - strong [ref=e84]: "Takeaway:"
+            - text: Instrument agent trajectories, not just outcomes. A correct answer from wrong reasoning will fail in production.
+      - generic [ref=e85]:
+        - heading "Builder Notes" [level=2] [ref=e86]
+        - paragraph [ref=e87]: Practical research and tools worth integrating or watching
+        - article [ref=e88]:
+          - generic [ref=e89]:
+            - generic [ref=e90]: Research
+            - generic [ref=e91]: arXiv cs.AI
+            - generic [ref=e92]: ·
+            - generic [ref=e93]: May 15
+            - generic [ref=e94]: •••
+          - heading "GRACE Curates Reasoning Training Data Step-by-Step, Not Sample-by-Sample" [level=3] [ref=e95]:
+            - link "GRACE Curates Reasoning Training Data Step-by-Step, Not Sample-by-Sample" [ref=e96] [cursor=pointer]:
+              - /url: https://arxiv.org/abs/2605.13130
+          - paragraph [ref=e97]: "GRACE uses gradient alignment to score individual reasoning steps rather than whole samples. Steps within a trace contribute unevenly to learning—most curation pipelines ignore this. The result: better post-training efficiency with less data."
+          - paragraph [ref=e98]:
+            - strong [ref=e99]: "Why it matters:"
+            - text: If you're doing reasoning fine-tuning, your data curation pipeline is probably leaving quality on the table.
+          - paragraph [ref=e100]:
+            - strong [ref=e101]: "Takeaway:"
+            - text: Step-level curation beats sample-level filtering for reasoning tasks. Worth implementing before your next training run.
+        - article [ref=e102]:
+          - generic [ref=e103]:
+            - generic [ref=e104]: Research
+            - generic [ref=e105]: arXiv cs.AI
+            - generic [ref=e106]: ·
+            - generic [ref=e107]: May 15
+            - generic [ref=e108]: •••
+          - heading "Reasoning Models Do Long Chain-of-Thought but Plan Myopically" [level=3] [ref=e109]:
+            - link "Reasoning Models Do Long Chain-of-Thought but Plan Myopically" [ref=e110] [cursor=pointer]:
+              - /url: https://arxiv.org/abs/2605.06840
+          - paragraph [ref=e111]: Extracting search trees from LLM reasoning traces shows that despite extended deliberation, models plan myopically—they don't actually look far ahead. The appearance of strategic reasoning in CoT doesn't mean genuine long-horizon planning is happening.
+          - paragraph [ref=e112]:
+            - strong [ref=e113]: "Why it matters:"
+            - text: Prompting strategies that assume deep planning may be working for the wrong reasons.
+          - paragraph [ref=e114]:
+            - strong [ref=e115]: "Takeaway:"
+            - text: Don't trust CoT length as a proxy for planning depth. Test on tasks that actually require multi-step lookahead.
+        - article [ref=e116]:
+          - generic [ref=e117]:
+            - generic [ref=e118]: Tool
+            - generic [ref=e119]: arXiv cs.AI
+            - generic [ref=e120]: ·
+            - generic [ref=e121]: May 15
+            - generic [ref=e122]: •••
+          - 'heading "SREGym: A Live Benchmark for AI Agents in Real Failure Scenarios" [level=3] [ref=e123]':
+            - 'link "SREGym: A Live Benchmark for AI Agents in Real Failure Scenarios" [ref=e124] [cursor=pointer]':
+              - /url: https://arxiv.org/abs/2605.07161
+          - paragraph [ref=e125]: SREGym provides high-fidelity SRE failure scenarios for evaluating AI agents on real operational tasks—incident diagnosis, remediation, escalation. One of the few benchmarks grounded in something builders actually care about deploying agents for.
+          - paragraph [ref=e126]:
+            - strong [ref=e127]: "Why it matters:"
+            - text: Ops automation is a high-value agent use case with almost no good evaluation infrastructure until now.
+          - paragraph [ref=e128]:
+            - strong [ref=e129]: "Takeaway:"
+            - text: If you're building SRE or DevOps agents, SREGym is worth using as a baseline before claiming capability.
+        - article [ref=e130]:
+          - generic [ref=e131]:
+            - generic [ref=e132]: Research
+            - generic [ref=e133]: arXiv cs.AI
+            - generic [ref=e134]: ·
+            - generic [ref=e135]: May 15
+            - generic [ref=e136]: ••••
+          - heading "Prompt Injection Defenses Still Don't Hold Under Systematic Evaluation" [level=3] [ref=e137]:
+            - link "Prompt Injection Defenses Still Don't Hold Under Systematic Evaluation" [ref=e138] [cursor=pointer]:
+              - /url: https://arxiv.org/abs/2604.23887
+          - paragraph [ref=e139]: A systematic evaluation of prompt injection defenses finds current approaches remain inadequate under adversarial conditions. No defense tested provides robust protection across attack variants. Defense-in-depth is the only viable posture.
+          - paragraph [ref=e140]:
+            - strong [ref=e141]: "Why it matters:"
+            - text: If you're shipping agents that process untrusted input, there is no reliable single-layer defense right now.
+          - paragraph [ref=e142]:
+            - strong [ref=e143]: "Takeaway:"
+            - text: Assume prompt injection will succeed. Design your agent architecture so successful injection has limited blast radius.
+      - generic [ref=e144]:
+        - heading "Research Worth Skimming" [level=2] [ref=e145]
+        - paragraph [ref=e146]: Solid papers with longer-term relevance—not urgent, but worth bookmarking
+        - article [ref=e147]:
+          - generic [ref=e148]:
+            - generic [ref=e149]: Research
+            - generic [ref=e150]: arXiv cs.AI
+            - generic [ref=e151]: ·
+            - generic [ref=e152]: May 15
+            - generic [ref=e153]: •••
+          - heading "Gold-Medal Olympiad Reasoning via Simple Unified Scaling" [level=3] [ref=e154]:
+            - link "Gold-Medal Olympiad Reasoning via Simple Unified Scaling" [ref=e155] [cursor=pointer]:
+              - /url: https://arxiv.org/abs/2605.13301
+          - paragraph [ref=e156]: "A unified recipe for reaching gold-medal-level performance on IMO and IPhO problems. The 'simple and unified' framing is the interesting part—suggests the scaling approach generalizes rather than being problem-specific. Benchmark context: performance at this level was rare 18 months ago."
+          - paragraph [ref=e157]:
+            - strong [ref=e158]: "Why it matters:"
+            - text: Mathematical reasoning capability is moving faster than most evaluation frameworks can track.
+          - paragraph [ref=e159]:
+            - strong [ref=e160]: "Takeaway:"
+            - text: If your application involves formal reasoning, the capability ceiling just moved again.
+        - article [ref=e161]:
+          - generic [ref=e162]:
+            - generic [ref=e163]: Research
+            - generic [ref=e164]: arXiv cs.AI
+            - generic [ref=e165]: ·
+            - generic [ref=e166]: May 15
+            - generic [ref=e167]: ••
+          - heading "Post-Cutoff Performance Decay Isn't Reliable Evidence of Benchmark Contamination" [level=3] [ref=e168]:
+            - link "Post-Cutoff Performance Decay Isn't Reliable Evidence of Benchmark Contamination" [ref=e169] [cursor=pointer]:
+              - /url: https://arxiv.org/abs/2509.00072
+          - paragraph [ref=e170]: The common assumption that performance drop after training cutoff signals contamination is wrong, this paper argues. The decay pattern has alternative explanations. Interactive benchmarks are proposed as a more robust alternative to static, fixed test sets.
+          - paragraph [ref=e171]:
+            - strong [ref=e172]: "Why it matters:"
+            - text: A lot of contamination claims in the literature may be methodologically unsound.
+          - paragraph [ref=e173]:
+            - strong [ref=e174]: "Takeaway:"
+            - text: Be skeptical of contamination arguments based solely on temporal performance curves. The signal is weaker than assumed.
+        - article [ref=e175]:
+          - generic [ref=e176]:
+            - generic [ref=e177]: Research
+            - generic [ref=e178]: arXiv cs.AI
+            - generic [ref=e179]: ·
+            - generic [ref=e180]: May 15
+            - generic [ref=e181]: •••
+          - 'heading "VERA-MH: Automated Safety Evaluation for Mental Health AI Chatbots" [level=3] [ref=e182]':
+            - 'link "VERA-MH: Automated Safety Evaluation for Mental Health AI Chatbots" [ref=e183] [cursor=pointer]':
+              - /url: https://arxiv.org/abs/2510.15297
+          - paragraph [ref=e184]: VERA-MH is a clinician-developed automated rubric for evaluating AI chatbot safety in mental health contexts, with initial focus on suicide risk. Built with practicing clinicians and academic experts. One of the few safety evals grounded in actual clinical standards.
+          - paragraph [ref=e185]:
+            - strong [ref=e186]: "Why it matters:"
+            - text: Healthcare AI deployment without domain-specific safety evals is a liability. This fills a real gap.
+          - paragraph [ref=e187]:
+            - strong [ref=e188]: "Takeaway:"
+            - text: If you're building in mental health or clinical contexts, VERA-MH is the baseline to run before deployment.
+      - generic [ref=e189]:
+        - heading "One Thing To Try" [level=2] [ref=e190]
+        - paragraph [ref=e191]: Run a credential scan on any third-party agent skill files or tool integrations in your stack before your next deployment. Use truffleHog or gitleaks against the skill repos you're pulling from. Given the 15% hit rate from Capsule's analysis, the expected value of this 20-minute audit is high.
+      - generic [ref=e192]:
+        - heading "Watch Next Week" [level=2] [ref=e193]
+        - list [ref=e194]:
+          - listitem [ref=e195]: →Whether the Rust compiler's new LLM policy (github.com/rust-lang/rust-forge/pull/1040) becomes a template other open source projects adopt—this is governance infrastructure for AI-assisted contribution at scale.
+          - listitem [ref=e196]: "→Multi-agent sycophancy: the paper arguing RLHF alone won't fix it points to a structural problem in how we train systems that need to disagree with each other. Watch for follow-up work on disagreement-robust training."
+          - listitem [ref=e197]: →WriteSAE's approach to interpreting recurrent state-space models (Mamba, RWKV) is early but important—as SSMs gain traction for long-context tasks, interpretability tools for them will matter.
+          - listitem [ref=e198]: →The 'lucky pass' problem in SWE-agent evals is likely present in other agentic domains too. Watch for similar trajectory-analysis work applied to browser agents and tool-use benchmarks.
+      - generic [ref=e199]:
+        - heading "Hype I'm Ignoring" [level=2] [ref=e200]
+        - list [ref=e201]:
+          - listitem [ref=e202]:
+            - strong [ref=e203]: Benchmark proliferation (MobiBench, Agentick, SupChain-Bench, Agent²RL-Bench, CodeClash, ATBench)
+            - text: — Six new agent benchmarks in one week is a sign of a field benchmarking faster than it's building. Most are methodologically fine but none moved the needle on what's actually deployable. Covered AgentLens because it critiques the benchmark culture itself.
+          - listitem [ref=e204]:
+            - strong [ref=e205]: Inference efficiency paper cluster (FOAM, FlashSampling, N-vium, KVServe, quantization)
+            - text: — All solid incremental work, none of it shipped as usable tooling this week. Will matter when it lands in inference frameworks. Watching for integration into vLLM or TGI before covering in depth.
+          - listitem [ref=e206]:
+            - strong [ref=e207]: Domain-specific agent demos (AI CFD Scientist, RealICU)
+            - text: — Interesting existence proofs but neither is close to production use. The benchmarks they introduce are too narrow to generalize. Filed under 'impressive demo, revisit when there's a real deployment story.'
+          - listitem [ref=e208]:
+            - strong [ref=e209]: Access to frontier AI policy speculation
+            - text: — The Anton Leicht piece on economic and security constraints on frontier AI access is thoughtful but largely predictive. Nothing shipped, no policy changed. Worth tracking but not actionable this week.
+    - generic [ref=e211]:
+      - generic [ref=e212]: Curated by Claude. Edited by a human.
+      - link "Source" [ref=e213] [cursor=pointer]:
+        - /url: https://github.com/petrkindlmann/ai-news-monitor
+  - alert [ref=e214]

@@ -14,17 +14,18 @@ export function generateStaticParams() {
 }
 
 export default function IssuePage({ params }: { params: { slug: string } }) {
+  let issue: Issue;
   try {
     const raw = readFileSync(resolve(ISSUES_DIR, `${params.slug}.json`), 'utf8');
-    const issue = JSON.parse(raw) as Issue;
-    return (
-      <main className="min-h-screen bg-stone-50">
-        <Header />
-        <IssueView issue={issue} />
-        <Footer />
-      </main>
-    );
+    issue = JSON.parse(raw) as Issue;
   } catch {
     notFound();
   }
+  return (
+    <main className="min-h-screen bg-stone-50">
+      <Header />
+      <IssueView issue={issue!} />
+      <Footer />
+    </main>
+  );
 }

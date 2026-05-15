@@ -35,7 +35,7 @@ export function IssueView({ issue }: { issue: Issue }) {
       </section>
 
       <section className="border-t border-stone-300 pt-8">
-        <h2 className="text-xl font-serif font-bold text-stone-900 mb-4">Hype I'm Ignoring</h2>
+        <h2 className="text-xl font-serif font-bold text-stone-900 mb-4">Hype I&apos;m Ignoring</h2>
         <ul className="space-y-3">
           {issue.ignoredThisWeek.map((t, i) => (
             <li key={i} className="text-stone-700">

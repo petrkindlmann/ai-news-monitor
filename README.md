@@ -1,211 +1,33 @@
 # AI News Monitor
 
-Real-time AI/LLM news aggregation with sentiment analysis. Built to demonstrate content monitoring and workflow automation capabilities.
+Weekly field notes from the AI firehose. A static zine generated every Monday by a Claude-powered curation pipeline.
 
-**Live Demo:** [ai-news.kindlmann.com](https://ai-news.kindlmann.com)
+**Live:** [ai-news.kindlmann.com](https://ai-news.kindlmann.com)
 
-![Dashboard Preview](./docs/dashboard-preview.png)
+## How it works
 
-## Overview
+1. A GitHub Action runs every Monday 09:00 UTC.
+2. `scripts/build-issue.ts` fetches ~8 AI RSS feeds, pre-filters, then runs a 3-stage Claude pipeline:
+   - **Rank** every item (Haiku) on signal vs hype.
+   - **Cluster** related stories to avoid duplicate coverage.
+   - **Write** the issue (Sonnet) with editor's letter, story blurbs, and "Hype I'm ignoring."
+3. The result is committed to `content/issues/YYYY-Www.json`.
+4. Cloudflare Pages auto-deploys the static site.
 
-This project automatically aggregates AI news from RSS feeds and blogs, analyzes content sentiment using Claude API, and displays results in a live dashboard. It showcases:
+## Stack
 
-- **n8n workflow orchestration** — Scheduled RSS ingestion, data pipelines, conditional routing
-- **RSS-first data collection** — 8 feeds via n8n RSS Read nodes, 1 source via Playwright
-- **AI-powered analysis** — Sentiment detection, topic extraction, automated summaries
-- **Real-time dashboard** — Next.js frontend with live data visualization
+- Next.js 14 (static export)
+- TypeScript scripts (run via `tsx`)
+- `rss-parser`, `zod`
+- `@anthropic-ai/sdk` — Claude Haiku 4.5 + Sonnet 4.6
+- GitHub Actions (cron)
+- Cloudflare Pages
 
-## Architecture
-
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  8x RSS Feeds   │────▶│   n8n Workflow  │────▶│   PostgreSQL    │
-│  (HTTP GET)     │     │   (Scheduler)   │     │   (Storage)     │
-└─────────────────┘     └────────┬────────┘     └────────┬────────┘
-                                 │                       │
-┌─────────────────┐              │                       ▼
-│ Anthropic Blog  │──────────────┘               ┌─────────────────┐
-│ (Playwright)    │                              │  Next.js App    │
-└─────────────────┘                              │  (Dashboard)    │
-                                                 └─────────────────┘
-         ┌─────────────────┐
-         │   Claude API    │
-         │  (Analysis)     │
-         └─────────────────┘
-```
-
-## Data Sources
-
-| Source | Type | Feed URL |
-|--------|------|----------|
-| Hacker News | RSS | `hnrss.org/newest?q=AI+OR+LLM` |
-| Reddit r/MachineLearning | RSS (Atom) | `reddit.com/r/MachineLearning/.rss` |
-| Reddit r/LocalLLaMA | RSS (Atom) | `reddit.com/r/LocalLLaMA/.rss` |
-| TechCrunch AI | RSS | `techcrunch.com/category/artificial-intelligence/feed/` |
-| Anthropic Blog | Playwright | `anthropic.com/news` (no RSS available) |
-| OpenAI Blog | RSS | `openai.com/blog/rss.xml` |
-| DeepMind Blog | RSS | `deepmind.google/blog/rss.xml` |
-| Google AI Blog | RSS | `blog.google/technology/ai/rss/` |
-| arXiv cs.AI | RSS | `rss.arxiv.org/rss/cs.AI` |
-
-## Tech Stack
-
-- **Orchestration:** n8n (self-hosted)
-- **Data Ingestion:** RSS feeds via n8n RSS Read nodes
-- **Scraping:** Playwright (Anthropic Blog only — no RSS available)
-- **AI Analysis:** Claude API (claude-sonnet-4-20250514)
-- **Database:** PostgreSQL 15
-- **Dashboard:** Next.js 14 + React + Tailwind CSS
-- **Charts:** Recharts
-
-## Quick Start
-
-### Prerequisites
-
-- Node.js 18+
-- PostgreSQL 15+
-- n8n instance
-- Anthropic API key
-
-### 1. Clone and Install
+## Local dev
 
 ```bash
-git clone https://github.com/pkindlmann/ai-news-monitor.git
-cd ai-news-monitor
-
-# Install dashboard dependencies
 npm install
-
-# Install crawler dependencies (Playwright for Anthropic Blog)
-cd crawlers && npm install && cd ..
+cp .env.example .env.local   # paste your ANTHROPIC_API_KEY
+npm run build-issue          # generates content/issues/<slug>.json
+npm run dev                  # http://localhost:3000
 ```
-
-### 2. Database Setup
-
-```bash
-# Create database
-createdb ai_news_monitor
-
-# Run schema
-psql ai_news_monitor < n8n/schema.sql
-```
-
-### 3. Environment Variables
-
-Create `.env.local`:
-
-```env
-DATABASE_URL=postgresql://user:pass@localhost:5432/ai_news_monitor
-ANTHROPIC_API_KEY=sk-ant-...
-```
-
-### 4. Import n8n Workflow
-
-1. Open your n8n instance
-2. Import `n8n/main-workflow.json`
-3. Configure credentials (PostgreSQL, Anthropic API)
-4. Update the Anthropic crawler path in the "Crawl: Anthropic Blog" Execute Command node
-5. Activate the workflow
-
-### 5. Run Dashboard
-
-```bash
-npm run dev
-# Open http://localhost:3000
-```
-
-## Project Structure
-
-```
-ai-news-monitor/
-├── src/
-│   ├── app/                 # Next.js pages + API routes
-│   ├── components/          # React components
-│   └── lib/                 # Types, utilities, data
-├── crawlers/
-│   └── anthropic-crawler.ts # Playwright crawler (Anthropic only)
-├── n8n/
-│   ├── main-workflow.json   # Main n8n workflow (RSS + crawler)
-│   ├── daily-summary-workflow.json
-│   └── schema.sql           # PostgreSQL schema
-└── docs/
-    └── ARCHITECTURE.md      # Detailed architecture docs
-```
-
-## n8n Workflow
-
-The main workflow runs every 2 hours and:
-
-1. **Fetches** RSS feeds from 8 sources in parallel + crawls Anthropic Blog
-2. **Normalizes** all items into a unified schema
-3. **Stores** in PostgreSQL with deduplication (`ON CONFLICT`)
-4. **Analyzes** new items using Claude API for sentiment/topics
-5. **Updates** sentiment scores and summaries
-6. **Notifies** via Slack with crawl summary
-
-## Dashboard Features
-
-- **Live Feed** — Latest AI news with sentiment badges
-- **Trending Topics** — Most discussed topics with trend indicators
-- **Sentiment Chart** — 14-day sentiment history
-- **Crawler Status** — Real-time status of all sources
-- **AI Summary** — Daily highlights generated by Claude
-
-## API Endpoints
-
-```
-GET /api/news          # Latest news items
-GET /api/trends        # Trending topics
-GET /api/stats         # Source statistics
-GET /api/summary       # Daily AI summary
-GET /api/health        # Health check
-```
-
-## Configuration
-
-### Adding New RSS Sources
-
-1. Add an RSS Read node in `n8n/main-workflow.json`
-2. Add source mapping in the Normalize All Items code node
-3. Add source type to `src/lib/types.ts`
-4. Connect the new node to the Normalize node
-
-### Adjusting Crawl Frequency
-
-Edit the schedule trigger in `n8n/main-workflow.json`:
-
-```json
-{
-  "parameters": {
-    "rule": {
-      "interval": [{ "field": "hours", "hoursInterval": 2 }]
-    }
-  }
-}
-```
-
-## Performance
-
-- **RSS fetch time:** ~1 second per source
-- **Anthropic crawl time:** ~30 seconds (Playwright)
-- **Analysis time:** ~2 seconds per item (Claude API)
-- **Storage:** ~1KB per item
-- **Estimated monthly items:** ~3,000-5,000
-
-## License
-
-MIT
-
-## Author
-
-**Petr Kindlmann**
-QA Automation Engineer & AI Developer
-Prague, Czech Republic
-
-- Portfolio: [kindlmann.com](https://kindlmann.com)
-- GitHub: [@pkindlmann](https://github.com/pkindlmann)
-- LinkedIn: [petrkindlmann](https://linkedin.com/in/petrkindlmann)
-
----
-
-*Built with n8n + RSS + Claude API + Next.js*
