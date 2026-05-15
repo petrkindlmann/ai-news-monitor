@@ -9,7 +9,7 @@ import { writeIssue } from './lib/write-issue';
 import { validateIssue } from './lib/validate';
 import { issueSlug } from './lib/week';
 
-const ROOT = resolve(import.meta.dirname, '..');
+const ROOT = process.cwd();
 const ISSUES_DIR = resolve(ROOT, 'content/issues');
 const DEBUG_DIR = resolve(ROOT, 'scripts/output');
 
