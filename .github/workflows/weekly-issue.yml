@@ -1,0 +1,50 @@
+name: Weekly Issue
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'   # Monday 09:00 UTC
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Skip validator failures'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Build weekly issue
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ "${{ inputs.force }}" = "true" ]; then
+            npm run build-issue:force
+          else
+            npm run build-issue
+          fi
+
+      - name: Commit if changed
+        run: |
+          git config user.name "ai-news-monitor[bot]"
+          git config user.email "ai-news-monitor@users.noreply.github.com"
+          git add content/issues/
+          if git diff --staged --quiet; then
+            echo "No changes — skipping commit."
+          else
+            slug=$(node -e "console.log(require('./content/issues/latest.json').slug)")
+            git commit -m "content: issue ${slug}"
+            git push
+          fi
