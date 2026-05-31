@@ -1,31 +1,31 @@
 import { IssueView } from '@/components/IssueView';
 import { Header, Footer } from '@/components';
-import { Issue } from '@/lib/types';
-import { readdirSync, readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { getAllIssues, getIssue, getLatestSlug, issueNo } from '@/lib/issues';
 import { notFound } from 'next/navigation';
 
-const ISSUES_DIR = resolve(process.cwd(), 'content/issues');
-
 export function generateStaticParams() {
-  return readdirSync(ISSUES_DIR)
-    .filter(f => /^\d{4}-W\d{2}\.json$/.test(f))
-    .map(f => ({ slug: f.replace('.json', '') }));
+  return getAllIssues().map((i) => ({ slug: i.slug }));
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const issue = getIssue(params.slug);
+  if (!issue) return {};
+  return {
+    title: `No. ${issueNo(issue.slug)} — ${issue.issueTitle} · AI News Monitor`,
+    description: issue.editorLetter.slice(0, 155),
+  };
 }
 
 export default function IssuePage({ params }: { params: { slug: string } }) {
-  let issue: Issue;
-  try {
-    const raw = readFileSync(resolve(ISSUES_DIR, `${params.slug}.json`), 'utf8');
-    issue = JSON.parse(raw) as Issue;
-  } catch {
-    notFound();
-  }
+  const issue = getIssue(params.slug);
+  if (!issue) notFound();
+  const issues = getAllIssues();
+  const latestSlug = getLatestSlug();
   return (
-    <main className="min-h-screen bg-stone-50">
-      <Header />
-      <IssueView issue={issue!} />
-      <Footer />
-    </main>
+    <>
+      <Header active="archive" issue={issue} />
+      <IssueView issue={issue} />
+      <Footer recent={issues} latestSlug={latestSlug} />
+    </>
   );
 }

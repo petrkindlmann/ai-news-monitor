@@ -1,17 +1,18 @@
 import { IssueView } from '@/components/IssueView';
 import { Header, Footer } from '@/components';
-import { Issue } from '@/lib/types';
-import latest from '../../content/issues/latest.json';
-
-export default function Home() {
-  const issue = latest as Issue;
-  return (
-    <main className="min-h-screen bg-stone-50">
-      <Header />
-      <IssueView issue={issue} />
-      <Footer />
-    </main>
-  );
-}
+import { getAllIssues, getLatestSlug } from '@/lib/issues';
 
 export const dynamic = 'force-static';
+
+export default function Home() {
+  const issues = getAllIssues();
+  const issue = issues[0];
+  const latestSlug = getLatestSlug();
+  return (
+    <>
+      <Header active="home" issue={issue} />
+      <IssueView issue={issue} />
+      <Footer recent={issues} latestSlug={latestSlug} />
+    </>
+  );
+}
