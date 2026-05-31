@@ -57,7 +57,7 @@ export function IssueView({ issue }: { issue: Issue }) {
   useEffect(() => {
     const ids = [
       ...issue.sections.map((_, i) => `sec-${i}`),
-      'try', 'watch', 'ignore',
+      'try', 'watch',
     ];
     const targets = ids
       .map((id) => document.getElementById(id))
@@ -112,7 +112,6 @@ export function IssueView({ issue }: { issue: Issue }) {
     ...issue.sections.map((s, i) => ({ target: `sec-${i}`, label: s.title })),
     { target: 'try', label: 'One Thing' },
     { target: 'watch', label: 'Watch Next' },
-    { target: 'ignore', label: 'Ignoring' },
   ];
 
   return (
@@ -246,21 +245,6 @@ export function IssueView({ issue }: { issue: Issue }) {
           </ul>
         </div>
 
-        <div className="callout reveal" id="ignore">
-          <div className="callout-head"><h2>Hype I&apos;m Ignoring</h2><span className="ch-rule" /></div>
-          <p className="ignore-intro">Loud this week, but it doesn&apos;t change what you should build. Skipped, with reasons.</p>
-          <ul className="ignore-list">
-            {issue.ignoredThisWeek.map((t, i) => (
-              <li key={i}>
-                <span className="ig-mark">{String(i + 1).padStart(2, '0')}</span>
-                <span>
-                  <span className="ig-theme">{t.theme}</span>
-                  <span className="ig-reason">{t.reason}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
       </main>
     </>
   );

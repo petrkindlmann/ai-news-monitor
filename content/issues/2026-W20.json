@@ -157,56 +157,6 @@
           "heat": 3
         }
       ]
-    },
-    {
-      "title": "Hype I'm Ignoring",
-      "description": "Stories that generated noise this week but don't change what you should do.",
-      "stories": [
-        {
-          "title": "Watermarking Reframed as 'Monitoring Primitive' — Still Not a Defense",
-          "source": "arXiv cs.AI",
-          "url": "https://arxiv.org/abs/2605.13095",
-          "publishedAt": "2026-05-15T04:00:00.000Z",
-          "label": "Ignore",
-          "blurb": "The paper correctly argues watermarking should be evaluated as a monitoring tool rather than a standalone defense. That's a useful framing shift. But it doesn't make watermarking more robust — it just clarifies what it was always good for. Not a breakthrough, a clarification.",
-          "whyItMatters": "Useful for researchers designing watermarking evaluation frameworks. Not actionable for most builders.",
-          "takeaway": "Watermarking is a detection layer, not a prevention layer. This paper just makes that explicit.",
-          "heat": 1
-        },
-        {
-          "title": "VLMs Leak Training Data Through Semantic Distraction — In a Lab Setting",
-          "source": "arXiv cs.AI",
-          "url": "https://arxiv.org/abs/2605.12574",
-          "publishedAt": "2026-05-15T04:00:00.000Z",
-          "label": "Research",
-          "blurb": "DistractMIA performs black-box membership inference on VLMs by using semantic distraction in prompts. Clever attack, real leakage demonstrated. But the practical threat model — auditors querying deployed VLMs to reconstruct training membership — is narrow and the attack requires significant query budget.",
-          "whyItMatters": "Relevant for privacy auditing of deployed VLMs. Not an immediate production threat for most teams.",
-          "takeaway": "Worth monitoring if you're deploying VLMs trained on sensitive image-text data. Not urgent otherwise.",
-          "heat": 2
-        }
-      ]
-    }
-  ],
-  "ignoredThisWeek": [
-    {
-      "theme": "Robotics & Embodied AI",
-      "reason": "QuickLAP and diffusion policy acceleration are solid work but nothing shipped this week that changes the robotics stack for most readers. Watching, not covering."
-    },
-    {
-      "theme": "Agent Memory Architectures",
-      "reason": "GAAMA and the AI co-mathematician workbench are interesting research directions but neither is deployable today. Graph-augmented memory for agents is a 2027 story."
-    },
-    {
-      "theme": "Scaling Law Theory Papers",
-      "reason": "The hierarchical language model paper with 'provable benefits of reasoning' is mathematically interesting but operates on synthetic languages. Doesn't transfer to production decisions yet."
-    },
-    {
-      "theme": "Clinical AI Benchmarks",
-      "reason": "RealICU is a good benchmark contribution for the medical AI community specifically. Too domain-narrow for general coverage this week."
-    },
-    {
-      "theme": "T2I Safety Mechanisms",
-      "reason": "SPOT is a reasonable inference-only safety technique for text-to-image, but the threat model (unsafe image generation) is well-trodden and this doesn't substantially move the needle."
     }
   ],
   "oneThingToTry": "Run semantic fuzzing against one of your agent skills this week. Pick the skill with the broadest permissions (file access, API calls, anything destructive). Write 10 benign-sounding inputs that approach edge cases of its declared safety rules. You will almost certainly find a violation. The FORTIS benchmark paper (https://arxiv.org/abs/2605.09163) has a methodology you can adapt.",

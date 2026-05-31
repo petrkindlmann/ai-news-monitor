@@ -33,7 +33,7 @@ export default function AboutPage() {
           <p>What&apos;s left is the handful of developments that actually change what a builder or a decision-maker should do this week. Each one comes with a plain answer to two questions you&apos;re already asking: <strong>why does this matter</strong>, and <strong>what should I do about it</strong>.</p>
 
           <h3>How it&apos;s made</h3>
-          <p>Stories are gathered and clustered from a wide net of feeds, then ranked by signal. A human editor makes the final cut, writes the letter, and is accountable for every call — including the ones in &ldquo;Hype I&apos;m Ignoring,&rdquo; where we show our work on what got cut and why. The voice is single and opinionated on purpose. You can disagree with it; you&apos;ll always know where it stands.</p>
+          <p>Stories are gathered and clustered from a wide net of feeds, then ranked by signal. A human editor makes the final cut, writes the letter, and is accountable for every call. The voice is single and opinionated on purpose. You can disagree with it; you&apos;ll always know where it stands.</p>
         </div>
 
         <div className="promise-grid">

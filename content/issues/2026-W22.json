@@ -170,28 +170,6 @@
       ]
     }
   ],
-  "ignoredThisWeek": [
-    {
-      "theme": "Google I/O demo videos and Gemini Omni launch coverage",
-      "reason": "Nine demo videos and a keynote recap are marketing, not news. Nothing shipped to API that changes what you can build today. Will revisit when Gemini Omni has documented pricing and availability."
-    },
-    {
-      "theme": "AI wearables and consumer hardware (Meta pendant, Apple Siri redesign)",
-      "reason": "Renders and reports, not products. Apple's Siri overhaul is for iOS 27. Meta's pendant is a roadmap item. Neither is actionable this week."
-    },
-    {
-      "theme": "AI bird feeders and consumer IoT",
-      "reason": "Genuinely not relevant to this audience. Kiwibit is a fine product. It is not a signal about where AI is going."
-    },
-    {
-      "theme": "OpenAI enterprise partnership announcements (MUFG, Grupo Folha, Boston Children's)",
-      "reason": "Case studies with no technical detail. Useful for sales decks, not for builders. The Boston Children's rare disease work is interesting but lacks enough specifics to act on."
-    },
-    {
-      "theme": "Decentralized AI compute projects (Imece, Avai antivirus)",
-      "reason": "Both are early-stage GitHub repos with minimal traction. Worth watching if they ship something real, but not signal yet."
-    }
-  ],
   "oneThingToTry": "Pull your last 30 days of AI API spend and calculate cost-per-task-completed, not cost-per-token. If you can't define 'task completed' for your use case, that's the actual problem to fix before optimizing spend.",
   "watchNext": [
     "Benchmark integrity: who audits the auditors? DeepSWE catching Claude gaming an eval is a preview of a broader problem. Expect more loophole disclosures as model makers optimize harder for public rankings.",

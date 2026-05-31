@@ -423,7 +423,7 @@ a { color: inherit; }
 }
 
 /* ============================================================
-   CALLOUTS — One Thing / Watch Next / Hype Ignoring
+   CALLOUTS — One Thing / Watch Next
    ============================================================ */
 .callout {
   margin-top: 56px; scroll-margin-top: 72px;
@@ -454,21 +454,6 @@ a { color: inherit; }
   content: '→'; color: var(--accent); font-size: 1.1rem; flex: none; line-height: 1.5;
 }
 .watch-list li b { color: var(--ink); font-weight: 600; }
-
-.ignore-intro { font-style: italic; color: var(--muted); margin: 8px 0 4px; max-width: 56ch; }
-.ignore-list { list-style: none; margin: 18px 0 0; padding: 0; }
-.ignore-list li {
-  display: grid; grid-template-columns: auto 1fr; gap: 16px;
-  padding: 16px 0; border-top: 1px dashed var(--rule);
-}
-.ignore-list li .ig-mark {
-  font-family: var(--mono); font-size: 0.9rem; color: var(--faint); line-height: 1.5;
-}
-.ignore-list li .ig-theme {
-  font-weight: 600; color: var(--muted); text-decoration: line-through;
-  text-decoration-color: var(--rule); margin-bottom: 4px;
-}
-.ignore-list li .ig-reason { color: var(--faint); font-size: 0.94rem; line-height: 1.55; }
 
 .callout-head {
   display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px;

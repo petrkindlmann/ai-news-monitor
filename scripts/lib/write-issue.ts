@@ -29,7 +29,6 @@ HARD RULES:
 - editorLetter must be under 250 words.
 - Each blurb under 80 words.
 - watchNext: 3-5 short open threads.
-- ignoredThisWeek: 2-5 themes you intentionally skipped, with reason.
 
 Return ONLY a JSON object matching this shape, no prose, no code fences:
 {
@@ -40,7 +39,7 @@ Return ONLY a JSON object matching this shape, no prose, no code fences:
   "editorLetter": "...",
   "sections": [
     {
-      "title": "The 5 That Matter | Builder Notes | Research Worth Skimming | Hype I'm Ignoring | etc.",
+      "title": "The 5 That Matter | Builder Notes | Research Worth Skimming | etc.",
       "description": "one line",
       "stories": [
         {
@@ -57,7 +56,6 @@ Return ONLY a JSON object matching this shape, no prose, no code fences:
       ]
     }
   ],
-  "ignoredThisWeek": [{ "theme": "...", "reason": "..." }],
   "oneThingToTry": "...",
   "watchNext": ["...", "..."]
 }`;

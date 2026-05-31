@@ -56,11 +56,6 @@ export interface IssueSection {
   stories: Story[];
 }
 
-export interface IgnoredTheme {
-  theme: string;
-  reason: string;
-}
-
 export interface Issue {
   issueTitle: string;
   slug: string;                // e.g. "2026-W20"
@@ -68,7 +63,6 @@ export interface Issue {
   weekRange: { start: string; end: string };
   editorLetter: string;
   sections: IssueSection[];
-  ignoredThisWeek: IgnoredTheme[];
   oneThingToTry: string;
   watchNext: string[];
 }

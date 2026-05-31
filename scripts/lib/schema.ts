@@ -25,10 +25,6 @@ export const IssueSchema = z.object({
     description: z.string(),
     stories: z.array(StorySchema),
   })).min(1),
-  ignoredThisWeek: z.array(z.object({
-    theme: z.string(),
-    reason: z.string(),
-  })),
   oneThingToTry: z.string().min(10),
   watchNext: z.array(z.string()).min(3).max(5),
 });
